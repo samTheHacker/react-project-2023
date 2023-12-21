@@ -1,9 +1,13 @@
 import './App.css';
 
-function App() {
+const [firstCity] = ["Belfast", "Dublin", "Galway"]; //deconstruct a array/object
+
+console.log(firstCity);
+
+function App({library}) {
   return (
     <div className="App">
-      <h1>Hello From React!</h1>
+      <h1>Hello From {library}</h1>
     </div>
   );
 }
