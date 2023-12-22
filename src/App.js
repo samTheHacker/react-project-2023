@@ -7,14 +7,19 @@ function Home(){
  )
 }
 
-function Contact(){
+export function Contact(){
   return (<div>
     <h1>Contact</h1>
   </div>
   )
 }
-function App() {
+
+export function About(){
+  return (<div>
+    <h1>About me</h1>
+  </div>
+  )
+}
+export function App() {
   return <Home />
 }
-
-export default App;
