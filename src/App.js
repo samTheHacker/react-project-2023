@@ -1,32 +1,39 @@
 import './App.css';
 import  {useState} from "react";
 
+function useInput(initalValue){
+  const [value, setValue] = useState(initalValue);
+  return [
+    {
+      value,
+      onChange: (e) => setValue(e.target.value)
+    },
+    () => setValue(initalValue)
+  ];
+}
+
 function App() {
-const [title, setTitle] = useState("");
-const [colour, setColour] =  useState("#000000");
+const [titleProps, resetTitle] = useInput("");
+const [colourProps, resetColour] =  useInput("#000000");
 
 const submit = (e) => {
   e.preventDefault();
-  alert(`${title}, ${colour}`);
-  setTitle("");
-  setColour("");
+  alert(`${titleProps.value}, ${colourProps.value}`);
+  resetTitle();
+  resetColour();
 
 };
 
   return (
     <form onSubmit={submit}>
       <input 
-        value={title}
-        onChange={(event) => setTitle(event.target.value)} 
+        {...titleProps}
         type="text" 
         placeholder="colour title..."
       />
       <input 
-        value={colour} 
         type="color" 
-        onChange={(event) => 
-        setColour(event.target.value)
-      }
+        {...colourProps}
       />
       <button>ADD</button>
     </form>
