@@ -1,43 +1,43 @@
 import './App.css';
-import  {useState} from "react";
+import  {useState, useEffect} from "react";
 
-function useInput(initalValue){
-  const [value, setValue] = useState(initalValue);
-  return [
-    {
-      value,
-      onChange: (e) => setValue(e.target.value)
-    },
-    () => setValue(initalValue)
-  ];
+const tahoe_peaks = [
+  { name: "Freel", elevation: 10891 },
+  { name: "Monument", elevation: 10067 },
+  { name: "Pyramid", elevation: 9983 },
+  { name: "Tallac", elevation: 9735 }
+];
+
+function List({ data, renderItem, renderEmpty }) {
+  return !data.length ? (
+    renderEmpty
+  ) : (
+    <ul>
+      {data.map((item) => (
+        <li key={item.name}>
+          {renderItem(item)}
+        </li>
+      ))}
+    </ul>
+  ); //if empty return renderEmpty, else do the data.map
 }
 
+
+
 function App() {
-const [titleProps, resetTitle] = useInput("");
-const [colourProps, resetColour] =  useInput("#000000");
-
-const submit = (e) => {
-  e.preventDefault();
-  alert(`${titleProps.value}, ${colourProps.value}`);
-  resetTitle();
-  resetColour();
-
-};
 
   return (
-    <form onSubmit={submit}>
-      <input 
-        {...titleProps}
-        type="text" 
-        placeholder="colour title..."
-      />
-      <input 
-        type="color" 
-        {...colourProps}
-      />
-      <button>ADD</button>
-    </form>
+    <List
+      data={tahoe_peaks}
+      renderEmpty={<p>This list is empty</p>}
+      renderItem={(item) => (
+        <>
+          {item.name} - {item.elevation} ft.
+        </> //fragment
+      )}
+    />
   );
+  
 }
 
 export default App;
